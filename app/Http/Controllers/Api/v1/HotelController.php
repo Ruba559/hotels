@@ -22,31 +22,23 @@ class HotelController extends Controller
 
     public function store(Request $request)
     {
-      
-        if ($request->images) {
+       
+        if ($request->hasfile('images')) {
             $images = $request->file('images');
-          // return response( $request->file('images'));
-        foreach($images as $image ) {
-            return response('k');
-            $name = $images->getClientOriginalName();
-            $path = $images->storeAs('uploads\hotel', $name, 'public');
+          
+         foreach($images as $key => $image ) {
+
+            $name = $image->getClientOriginalName();
+            $path[$key] = $image->storeAs('uploads\hotel', $name, 'public');
         }    
        }
 
-    // $imageName = "";
-
-    // if($request->images){
-
-    //  $image= $request->file('images');
-    //   $name = $image->getClientOriginalName();
-    //     $imageName = $image->storeAs('uploads/story', $name, 'public');
-    // }
         $hotel = Hotel::create([
             'name' => $request->name,
             'phone' => $request->phone,
             'email' => $request->email,
             'address' =>$request->address,
-            'images' => $path,
+            'images' => json_encode($path),
             'stars' => $request->stars,
             'about_hotel' => $request->about_hotel,
             'price_of_night' => $request->price_of_night,
@@ -65,21 +57,43 @@ class HotelController extends Controller
 
         $hotel = Hotel::find($id); 
 
-        $hotel->update([
-            'name' => $request->name,
-            'phone' => $request->phone,
-            'email' => $request->email,
-            'address' =>$request->address,
-            'images' => $request->images,
-            'stars' => $request->stars,
-            'about_hotel' => $request->about_hotel,
-            'price_of_night' => $request->price_of_night,
-            'is_offer' => $request->is_offer,
-            'check_in' => $request->check_in,
-            'check_out' => $request->check_out,
-            'region_id' => $request->region_id,
-        ]);
+        $hotel->update($request->except(['images']));
 
+        if ($request->images) {
+            if($hotel->images)
+            { 
+                foreach(json_decode($hotel->images) as $item)
+                {
+                    
+                  if(File_exists(public_path().'/storage/'.$item))
+                  {
+                   
+                      unlink(public_path().'/storage/'.$item);
+                  }
+                }
+
+            $images = $request->file('images');
+            
+            foreach($images as $key => $image ) {
+
+              $name = $image->getClientOriginalName();
+              $path[$key] = $image->storeAs('uploads\hotel', $name, 'public');
+            }  
+            
+                $hotel->update(['images' => json_encode($path)]);
+        }else{
+            
+            $images = $request->file('images');
+            
+            foreach($images as $key => $image ) {
+
+              $name = $image->getClientOriginalName();
+              $path[$key] = $image->storeAs('uploads\hotel', $name, 'public');
+            }  
+    
+             $hotel->update(['images' => json_encode($path)]);
+        }
+        }
         return response($hotel, 201);
     }
 
@@ -89,6 +103,15 @@ class HotelController extends Controller
 
         $hotel = Hotel::find($id); 
 
+        foreach(json_decode($hotel->images) as $item)
+        {
+            
+          if(File_exists(public_path().'/storage/'.$item))
+          {
+
+              unlink(public_path().'/storage/'.$item);
+          }
+        }
         $hotel->delete();
 
         return response($hotel, 201);
