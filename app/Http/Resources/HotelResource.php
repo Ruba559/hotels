@@ -24,6 +24,9 @@ class HotelResource extends JsonResource
             'check_in' => $this->check_in ?? "",
             'check_out' => $this->check_out ?? "",
             'region' =>  ! $this->region ? '' : new RegionResource($this->region) ,
+            'type' => $this->type ?? "",
+            'far_from_the_city_center' => $this->far_from_the_city_center ?? "",
+            'views' => $this->views ?? "",
             'created_at'=> $this->created_at ?? "",
            
         ];

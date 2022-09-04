@@ -19,6 +19,7 @@ class CreateOffersTable extends Migration
             $table->longText('description');
             $table->date('start_date');
             $table->date('end_date');
+            $table->integer('hotel_id');
             $table->timestamps();
         });
     }

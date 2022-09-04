@@ -25,7 +25,6 @@ class RateController extends Controller
       
         $rate = Rate::create([
             'name' => $request->name,
-            
         ]);
 
        
@@ -40,7 +39,6 @@ class RateController extends Controller
 
         $rate->update([
             'name' => $request->name,
-            
         ]);
 
         return response($rate, 201);

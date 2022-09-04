@@ -16,8 +16,8 @@ class OfferResource extends JsonResource
             'description' => $this->description ?? "",
             'start_date' => $this->start_date ?? "",
             'end_date' => $this->end_date ?? "",
+            'hotel' => ! $this->hotel ? '' : new HotelResource($this->hotel),
             'created_at'=> $this->created_at ?? "",
-           
         ];
     }
 }

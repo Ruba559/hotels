@@ -46,6 +46,8 @@ class HotelController extends Controller
             'check_in' => $request->check_in,
             'check_out' => $request->check_out,
             'region_id' => $request->region_id,
+            'type' => $request->type,
+            'far_from_the_city_center' => $request->far_from_the_city_center,
         ]);
        
         return response($hotel, 201);
@@ -112,6 +114,7 @@ class HotelController extends Controller
               unlink(public_path().'/storage/'.$item);
           }
         }
+
         $hotel->delete();
 
         return response($hotel, 201);

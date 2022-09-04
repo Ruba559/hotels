@@ -27,6 +27,7 @@ class OfferController extends Controller
             'description' => $request->description,
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
+            'hotel_id' => $request->hotel_id,
         ]);
 
        
@@ -44,6 +45,7 @@ class OfferController extends Controller
             'description' => $request->description,
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
+            'hotel_id' => $request->hotel_id,
         ]);
 
         return response($offer, 201);

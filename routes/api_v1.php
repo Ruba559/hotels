@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\v1\RoomController;
 use App\Http\Controllers\Api\v1\ServiceController;
 use App\Http\Controllers\Api\v1\UserController;
 use App\Http\Controllers\Api\v1\AuthController;
+use App\Http\Controllers\Api\v1\RateUserController;
 
 
 Route::post('login', [AuthController::class ,'login']);
@@ -66,5 +67,10 @@ Route::get('/user', [UserController::class,'index']);
 Route::post('/user', [UserController::class,'store']);
 Route::post('/user/{id}', [UserController::class,'update']);
 Route::delete('/user/{id}', [UserController::class,'destroy']);
+
+Route::get('/rate_user', [RateUserController::class,'index']);
+Route::post('/rate_user', [RateUserController::class,'store']);
+Route::post('/rate_user/{id}', [RateUserController::class,'update']);
+Route::delete('/rate_user/{id}', [RateUserController::class,'destroy']);
 
 });

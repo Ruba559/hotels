@@ -17,6 +17,7 @@ class CreateRateUsersTable extends Migration
             $table->id();
             $table->integer('rate_id');
             $table->integer('user_id');
+            $table->string('value');
             $table->timestamps();
         });
     }

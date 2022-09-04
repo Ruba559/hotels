@@ -19,6 +19,7 @@ class CreateHotelsTable extends Migration
             $table->string('phone');
             $table->string('email');
             $table->string('address');
+            $table->string('type');
             $table->string('images');
             $table->string('stars');
             $table->longText('about_hotel');
@@ -27,6 +28,10 @@ class CreateHotelsTable extends Migration
             $table->time('check_in');
             $table->time('check_out');
             $table->integer('region_id');
+            $table->string('far_from_the_city_center');
+            $table->longText('long')->nullable();
+            $table->longText('lat')->nullable();
+            $table->integer('views');
             $table->timestamps();
         });
     }
